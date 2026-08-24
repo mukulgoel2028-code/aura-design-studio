@@ -87,13 +87,18 @@ export function initCanvasScrub({
     if (!canvas || !ctx || isDisposed) return;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const width = window.innerWidth || canvas.clientWidth;
-    const height = window.innerHeight || canvas.clientHeight;
+    const rect = canvas.getBoundingClientRect();
+    const width = rect.width || window.innerWidth;
+    const height = rect.height || window.innerHeight;
 
+    // Physical pixel dimensions for Retina sharpness
     canvas.width = width * dpr;
     canvas.height = height * dpr;
 
-    // Scale drawing context so all subsequent draw operations use logical CSS coordinates
+    // Explicit CSS logical dimensions to avoid blurry browser scaling
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
     ctx.scale(dpr, dpr);
 
     renderFrame(currentFrameIndex);
@@ -129,7 +134,7 @@ export function initCanvasScrub({
   /**
    * 4. Draw & Render Logic:
    * Uses object-fit: cover math calculated against logical CSS dimensions
-   * (window.innerWidth × window.innerHeight) so DPR scaling does not distort aspect ratios.
+   * so DPR scaling does not distort aspect ratios.
    */
   const renderFrame = (index: number) => {
     if (isDisposed || !ctx || !canvas) return;
@@ -140,8 +145,9 @@ export function initCanvasScrub({
       return;
     }
 
-    const logicalWidth = window.innerWidth || canvas.clientWidth;
-    const logicalHeight = window.innerHeight || canvas.clientHeight;
+    const rect = canvas.getBoundingClientRect();
+    const logicalWidth = rect.width || window.innerWidth;
+    const logicalHeight = rect.height || window.innerHeight;
 
     // Clear logical canvas area
     ctx.clearRect(0, 0, logicalWidth, logicalHeight);
@@ -210,6 +216,7 @@ export function initCanvasScrub({
     if (isDisposed) return;
 
     if (firstImg) {
+      resizeCanvas();
       renderFrame(0);
       onFirstFrameLoaded?.();
       ScrollTrigger.refresh();

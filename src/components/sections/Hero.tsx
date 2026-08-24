@@ -46,73 +46,51 @@ export default function Hero({
     };
   }, []);
 
-  // GSAP scroll-scrub initialization with responsive matchMedia (runs once on mount)
+  // GSAP scroll-scrub initialization across all viewports (runs once on mount)
   useEffect(() => {
-    const mm = gsap.matchMedia();
+    // Initially hide text overlay until 85% progress
+    if (textOverlayRef.current) {
+      gsap.set(textOverlayRef.current, { opacity: 0, y: 24 });
+    }
 
-    // Desktop (>=768px): Full scroll-scrubbed canvas animation
-    mm.add("(min-width: 768px)", () => {
-      // Initially hide text overlay on desktop until 85% progress
-      if (textOverlayRef.current) {
-        gsap.set(textOverlayRef.current, { opacity: 0, y: 24 });
-      }
-
-      const cleanupScrub = initCanvasScrub({
-        folder: "frames1",
-        canvasRef,
-        triggerRef,
-        totalFrames: 270,
-        pinDistance: "+=1620px",
-        textRevealAt: 0.85,
-        onTextReveal: (revealed) => {
-          if (!textOverlayRef.current) return;
-          if (revealed) {
-            gsap.to(textOverlayRef.current, {
-              opacity: 1,
-              y: 0,
-              duration: 0.7,
-              ease: "power2.out",
-              overwrite: "auto",
-            });
-          } else {
-            gsap.to(textOverlayRef.current, {
-              opacity: 0,
-              y: 24,
-              duration: 0.4,
-              ease: "power2.in",
-              overwrite: "auto",
-            });
-          }
-        },
-        onFirstFrameLoaded: () => {
-          setIsFirstFrameLoaded(true);
-          onFirstFrameLoadedRef.current?.();
-        },
-        onProgress: (loaded, total) => {
-          onPreloadProgressRef.current?.(loaded, total);
-        },
-      });
-
-      return () => {
-        cleanupScrub();
-      };
-    });
-
-    // Mobile Fallback (<768px): Static overlay without canvas scrub
-    mm.add("(max-width: 767px)", () => {
-      if (textOverlayRef.current) {
-        gsap.set(textOverlayRef.current, {
-          opacity: 1,
-          y: 0,
-          clearProps: "all",
-        });
-      }
-      setIsFirstFrameLoaded(true);
-      onFirstFrameLoadedRef.current?.();
+    const cleanupScrub = initCanvasScrub({
+      folder: "frames1",
+      canvasRef,
+      triggerRef,
+      totalFrames: 270,
+      pinDistance: "+=1620px",
+      textRevealAt: 0.85,
+      onTextReveal: (revealed) => {
+        if (!textOverlayRef.current) return;
+        if (revealed) {
+          gsap.to(textOverlayRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        } else {
+          gsap.to(textOverlayRef.current, {
+            opacity: 0,
+            y: 24,
+            duration: 0.4,
+            ease: "power2.in",
+            overwrite: "auto",
+          });
+        }
+      },
+      onFirstFrameLoaded: () => {
+        setIsFirstFrameLoaded(true);
+        onFirstFrameLoadedRef.current?.();
+      },
+      onProgress: (loaded, total) => {
+        onPreloadProgressRef.current?.(loaded, total);
+      },
     });
 
     return () => {
-      mm.revert();
+      cleanupScrub();
     };
   }, []);
 
@@ -134,20 +112,10 @@ export default function Hero({
       ref={triggerRef}
       className="w-full h-screen relative overflow-hidden bg-deep-warm"
     >
-      {/* Desktop Canvas (hidden on mobile) */}
+      {/* Full-bleed Canvas Element */}
       <canvas
         ref={canvasRef}
-        className="hidden md:block absolute inset-0 w-full h-full object-cover"
-      />
-
-      {/* Mobile Video Fallback (<768px) */}
-      <video
-        src="/sequence/video1.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="block md:hidden absolute inset-0 w-full h-full object-cover"
+        className="block w-full h-full object-cover absolute inset-0 z-0"
       />
 
       {/* Subtle atmospheric vignette overlay */}

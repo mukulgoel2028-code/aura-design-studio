@@ -1,108 +1,71 @@
-import Image from "next/image";
-
 export default function Instagram() {
-  const posts = [
-    {
-      image: "/sequence/frames1/frames1_0045.jpg",
-      caption: "Natural sunlight illuminating fluted travertine textures.",
-      likes: "1,240",
-    },
-    {
-      image: "/sequence/frames2/frames2_0060.jpg",
-      caption: "Precision millwork joinery in natural smoked Austrian oak.",
-      likes: "982",
-    },
-    {
-      image: "/sequence/frames1/frames1_0180.jpg",
-      caption: "Curating raw materiality for our Tribeca client residence.",
-      likes: "2,415",
-    },
-    {
-      image: "/sequence/frames2/frames2_0180.jpg",
-      caption: "Monolithic Calacatta Viola details in high-noon illumination.",
-      likes: "1,890",
-    },
-    {
-      image: "/sequence/frames1/frames1_0250.jpg",
-      caption: "Final styling touches before client handover in Mayfair.",
-      likes: "3,110",
-    },
-    {
-      image: "/sequence/frames2/frames2_0280.jpg",
-      caption: "The quiet drama of concealed architectural lighting.",
-      likes: "1,670",
-    },
+  const instagramImages = [
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
   ];
 
   return (
-    <section
-      id="instagram"
-      className="w-full py-24 md:py-32 bg-cream px-6 md:px-12"
-    >
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-          <div>
-            <div className="flex items-center space-x-3 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-              <span className="font-body text-xs tracking-[0.25em] text-text-muted uppercase">
-                Behind the Scenes
-              </span>
-            </div>
-            <h2 className="font-display text-3xl md:text-5xl text-charcoal font-normal">
-              Atelier Chronicles
-            </h2>
-          </div>
+    <section id="instagram" className="w-full bg-white py-16 lg:py-20 relative">
+      {/* Centered Header Container */}
+      <div className="max-w-xl mx-auto text-center mb-10 px-6">
+        <h2 className="font-display text-3xl lg:text-[36px] text-charcoal uppercase font-normal mb-2">
+          FOLLOW OUR JOURNEY
+        </h2>
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-body text-base text-gold font-medium hover:underline cursor-pointer block"
+        >
+          @studiointeriors
+        </a>
+      </div>
 
+      {/* Responsive Photo Grid */}
+      <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-3 gap-[3px] px-4 md:px-6">
+        {instagramImages.map((src, index) => (
           <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 md:mt-0 inline-flex items-center space-x-2 text-charcoal font-body text-sm font-medium hover:text-gold transition-colors"
+            key={index}
+            href="#"
+            className="relative aspect-square overflow-hidden group cursor-pointer block"
           >
-            <span>@aurainteriors on Instagram</span>
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-          </a>
-        </div>
+            {/* Image Element */}
+            <img
+              src={src}
+              alt="Studio Instagram Project"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
 
-        {/* 6-Photo Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {posts.map((post, idx) => (
-            <div
-              key={idx}
-              className="group relative aspect-square rounded-xl overflow-hidden bg-charcoal/5 cursor-pointer shadow-sm"
-            >
-              <Image
-                src={post.image}
-                alt={post.caption}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
-              />
-              <div className="absolute inset-0 bg-charcoal/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 text-white">
-                <div className="text-right">
-                  <span className="font-body text-[10px] text-cream/90 flex items-center justify-end space-x-1">
-                    <span>♥</span>
-                    <span>{post.likes}</span>
-                  </span>
-                </div>
-                <p className="font-body text-[10px] line-clamp-3 text-cream/90 leading-tight">
-                  {post.caption}
-                </p>
-              </div>
+            {/* Hover Overlay */}
+            <div className="absolute inset-0 bg-[#1A1A1A]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex items-center justify-center">
+              {/* Overlay Content: 24px x 24px Instagram SVG Icon */}
+              <svg
+                className="w-6 h-6 text-white"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
             </div>
-          ))}
-        </div>
+          </a>
+        ))}
+      </div>
+
+      {/* Bottom Call-to-Action */}
+      <div className="text-center mt-10">
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-body text-sm text-gold font-medium hover:underline inline-flex items-center gap-1.5"
+        >
+          View All on Instagram →
+        </a>
       </div>
     </section>
   );
