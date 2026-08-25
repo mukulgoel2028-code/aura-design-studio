@@ -1,0 +1,39 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" shape-rendering="crispEdges">
+
+  <!-- Dark background tile -->
+  <rect width="32" height="32" rx="6" fill="#111111"/>
+
+  <!-- ═══════════════════════════════════════
+       GOLDEN GEOMETRIC ARCHITECTURAL MONOGRAM
+       Two overlapping A-forms read as:
+         · Left A  → outer wall / pitched ceiling
+         · Right A → inner wall / recessed arch
+       Shared crossbar evokes the floor-plan datum line.
+       All coords pixel-snapped for crisp 16 px rendering.
+       ═══════════════════════════════════════ -->
+  <g fill="none" stroke="#D4AF37" stroke-linecap="square" stroke-linejoin="miter">
+
+    <!-- ── LEFT  "A"  (outer envelope / exterior wall) ── -->
+    <line x1="10"  y1="6"  x2="5"  y2="26" stroke-width="1.5"/>
+    <line x1="10"  y1="6"  x2="15" y2="26" stroke-width="1.5"/>
+    <line x1="6.5" y1="18" x2="13.5" y2="18" stroke-width="1.5"/>
+
+    <!-- ── RIGHT "A"  (inner spatial volume / recessed arch) ── -->
+    <line x1="22"  y1="6"  x2="17" y2="26" stroke-width="1.5"/>
+    <line x1="22"  y1="6"  x2="27" y2="26" stroke-width="1.5"/>
+    <line x1="18.5" y1="18" x2="25.5" y2="18" stroke-width="1.5"/>
+
+    <!-- ── OVERLAP CONNECTOR — interstitial wall / column ── -->
+    <line x1="16" y1="6" x2="16" y2="26" stroke-width="1" stroke-opacity="0.45"/>
+
+    <!-- ── CORNER BRACKETS — floor-plan right-angle details ── -->
+    <polyline points="5,22 5,26 9,26"   stroke-width="1"/>
+    <polyline points="27,22 27,26 23,26" stroke-width="1"/>
+
+    <!-- ── APEX FINIAL — ceiling ridge / keystone dot ── -->
+    <circle cx="10" cy="6" r="1"  fill="#D4AF37" stroke="none"/>
+    <circle cx="22" cy="6" r="1"  fill="#D4AF37" stroke="none"/>
+
+  </g>
+
+</svg>
